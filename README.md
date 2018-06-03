@@ -88,6 +88,9 @@ All options are available in the Admin panel:
 
 `show_activators`: **Show activators**; Show activator buttons for disabled services (default **Disabled /  `false`**)
 
+---
+
+For a better understanding of the tarteaucitron.js options please read the [tarteaucitron.js documentation](https://github.com/AmauriC/tarteaucitron.js).
 
 ## Usage
 
