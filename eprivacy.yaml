@@ -1,0 +1,10 @@
+enabled: true
+hashtag: '#eprivacy'
+orientation: bottom
+ad_blocker: true
+show_alert_small: true
+cookieslist: true
+remove_credit: false
+ipstack_api_key: ''
+cookie_domain: ''
+show_activators: false

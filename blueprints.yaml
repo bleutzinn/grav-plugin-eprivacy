@@ -1,0 +1,107 @@
+name: ePrivacy
+version: 0.1.0
+testing: true
+description: Helps with EU ePrivacy Regulations (GDPR) compliance
+icon: user-secret
+author:
+  name: bleutzinn
+  email: bleutzinn@rwgc.nl
+homepage: https://github.com/bleutzinn/grav-plugin-eprivacy
+demo: https://festeto.net/grav-plugin-eprivacy-demo/
+keywords: privacy, eprivacy, e-privacy, gdpr, cookies, grav, plugin
+bugs: https://github.com/bleutzinn/grav-plugin-eprivacy/issues
+docs: https://github.com/bleutzinn/grav-plugin-eprivacy/README.md
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    hashtag:
+      type: text
+      label: Popup hashtag
+      help: Automatically open the popup when URL has this hashtag
+      size: medium
+    orientation:
+      type: select
+      size: medium
+      label: Position
+      default: bottom
+      help: Position of the banner on the page
+      options:
+        bottom: Bottom
+        top: Top
+    ad_blocker:
+      type: toggle
+      label: Adblocker alert
+      help: Display a message if an adblocker is detected
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    show_alert_small:
+      type: toggle
+      label: Small banner
+      help: Always show the small banner on the page
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    cookieslist:
+      type: toggle
+      label: List cookies
+      help: Display the list of cookies installed
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    remove_credit:
+      type: toggle
+      label: Remove credit link
+      help: Remove credit link to tarteaucitron.js
+      highlight: 0
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    cookie_domain: 
+      type: text
+      label: Cookie sudomains
+      help: Domain name on which the cookie for the subdomains will be placed
+      size: medium
+    ipstack_api_key:
+      type: text
+      label: ipstack API Access Key
+      help: ipstack is used to lookup whether a visit is from a EU member state
+      size: medium
+    show_activators:
+      type: toggle
+      label: Show activators
+      help: Show activator buttons for disabled services
+      highlight: 0
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
