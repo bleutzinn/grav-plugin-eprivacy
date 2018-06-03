@@ -68,9 +68,17 @@ class EPrivacyPlugin extends Plugin
 
             // Decode JSON response
             $api_result = json_decode($json, true);
-            
-            // Return the "is_eu" object inside "location"
-            return $api_result['location']['is_eu'];
+
+            // Check "is_eu" object inside "location"
+            if (is_null($api_result['location']['is_eu'])) {
+                // Determination failed so according to the safe mode
+                // principle assume EU origin
+                return true;
+            }
+            else {
+                // Return the "is_eu" value
+                return $api_result['location']['is_eu'];
+            }
         }
     }
 
