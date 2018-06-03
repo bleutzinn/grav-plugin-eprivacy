@@ -1,3 +1,11 @@
+# v0.2.1
+##  06/03/2018
+
+1. [](#new)
+    * Made use of ipstack optional
+2. [](#improved)
+    * Corrected version in blueprints.yaml file
+
 # v0.2.0
 ##  06/03/2018
 
