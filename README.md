@@ -108,6 +108,8 @@ Source: ipstack documentation, [online](https://ipstack.com/documentation#object
 
 Using ipstack is optional but adhering to the "safe mode" principle without it all visitors are treated as if they originate from the EU.
 
+>Note: when developing and testing on localhost the value of "is_eu" is always `true`.
+
 
 ## Credits
 
@@ -116,7 +118,7 @@ The core of the functionality is provided by the Cookie Manager "tarteaucitron.j
 ## To Do
 
 - [ ] Create a demo
-- [ ] Make use of ipstack optional
+- [x] Make use of ipstack optional
 - [ ] Improve the way the JS library tarteaucitron.js is included in this plugin's source code
 - [ ] Actively engage with the Grav community to improve this plugin (remains unchecked)
 
