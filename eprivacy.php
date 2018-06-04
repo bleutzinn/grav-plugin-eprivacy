@@ -10,6 +10,9 @@ use RocketTheme\Toolbox\Event\Event;
  */
 class EPrivacyPlugin extends Plugin
 {
+
+    protected $cookie_name = 'ePrivacyConfig';
+
     /**
      * @return array
      *
@@ -106,28 +109,41 @@ class EPrivacyPlugin extends Plugin
      */
     public function onTwigSiteVariables()
     {
-        $twig = $this->grav['twig'];
-        $assets = $this->grav['assets'];
+        // Use a cookie to limit ipstack requests
+        $cookie_value = [];
+        if (isset ($_COOKIE[$this->cookie_name])) {
+            // Get value from cookie
+            $cookie_value = json_decode($_COOKIE[$this->cookie_name], true);
+            $is_eu = $cookie_value['is_eu'];
+        }
+        else {
+            // No cookie yet so determine whether the visitor IP address is
+            // from a EU member state by a request to ipstack
+            $is_eu = $this->isEU();
 
-        $assets->addJs('plugin://eprivacy/tarteaucitron/tarteaucitron.js');
-
-        // Determine whether the visitor IP address is from a EU member state
-        $is_eu = $this->isEU();
+            // Set cookie with expiry of one year
+            $cookie_value['is_eu'] = $is_eu;
+            setcookie($this->cookie_name, json_encode($cookie_value), time()+60*60*24*365);
+        }
 
         if ($is_eu) {
+            // Visit from EU member state so activate tarteaucitron.js
+            $assets = $this->grav['assets'];
+            $assets->addJs('plugin://eprivacy/tarteaucitron/tarteaucitron.js');
+            
             // Get ePrivacy plugin config
             $config = $this->config->get('plugins.eprivacy');
-
+            
             // Add is_eu flag to config
             $config['is_eu'] = $is_eu;
-
+            
             // Add inline Javascript rendered by a custom template
-            $assets->addInlineJs($twig->twig->render('partials/renderjs.html.twig', array('eprivacy' => $config)));
+            $assets->addInlineJs($this->grav['twig']->twig->render('partials/renderjs.html.twig', array('eprivacy' => $config)));
         }
 
         // Pass on variable(s) for use in Twig templates
         $this->grav['twig']->twig_vars['eprivacy']['is_eu'] = $is_eu;
-
+        
     }
 
     /**
