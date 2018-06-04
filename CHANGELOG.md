@@ -1,3 +1,9 @@
+# v0.3.0
+##  06/04/2018
+
+1. [](#improved)
+    * Limit ipstack requests to new visitors only using ePrivacyConfig cookie
+
 # v0.2.1
 ##  06/03/2018
 
