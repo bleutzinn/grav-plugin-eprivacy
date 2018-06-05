@@ -15,7 +15,7 @@ To create a Grav plugin which helps webmasters and developers of Grav websites t
 
 ### Principles
 
-- "Safe mode" principle: In ambiguous situations features are implemented in such a way that the privacy of the visitor is respected to the fullest.
+- "Safe mode": In ambiguous situations features are implemented in such a way that the privacy of the visitor is respected to the fullest.
 
 ## Status
 
@@ -94,11 +94,19 @@ For a better understanding of the tarteaucitron.js options please read the [tart
 
 ## Usage
 
+Add third party services to your page as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
+
+In this 0.3.0 version of this plugin the best way to experiment is to include these code blocks in Twig templates.
+
+To ease this it is planned that a next version uses the Grav Shortcode Core Plugin to do that for you.
+
+## Requirements
+
+### ipstack IP to geolocation API
+
 The EU ePrivacy Regulations apply to EU citizens only. There is no way to know whether or not an anonymous visitors is a EU citizen except for asking him or her that question. (And maybe that must be a plugin feature?)
 
 The closest is deciding what to do based on the visitor's IP address. Most geo-ip services return the region or continent besides the country (code).
-
-### ipstack IP to geolocation API
 
 A free ipstack account includes the special "is_eu" boolean flag:
 
@@ -106,9 +114,13 @@ A free ipstack account includes the special "is_eu" boolean flag:
 
 Source: ipstack documentation, [online](https://ipstack.com/documentation#objects) (2018-06-03)
 
-Using ipstack is optional but adhering to the "safe mode" principle without it all visitors are treated as if they originate from the EU.
+Using ipstack is optional but adhering to the "safe mode" principle, without it all visitors are treated as if they originate from the EU.
 
 >Note: when developing and testing on localhost the value of "is_eu" is always `true`.
+
+### Shortcode Core Plugin
+
+The next version will require the Grav Shortcode Core Plugin as the mechanism to include the tarteaucitron.js third party services code blocks in the page content.
 
 
 ## Credits
@@ -118,6 +130,7 @@ The core of the functionality is provided by the Cookie Manager "tarteaucitron.j
 ## To Do
 
 - [ ] Create a demo
+- [ ] Use the Grav Shortcode Core Plugin to include the tarteaucitron.js third party services code blocks in the page content
 - [x] Make use of ipstack optional
 - [ ] Improve the way the JS library tarteaucitron.js is included in this plugin's source code
 - [ ] Actively engage with the Grav community to improve this plugin (remains unchecked)
