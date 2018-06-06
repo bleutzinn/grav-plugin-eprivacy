@@ -2,7 +2,7 @@ name: ePrivacy
 version: 0.3.0
 testing: true
 description: Helps with EU ePrivacy Regulations (GDPR) compliance
-icon: user-secret
+icon: eye-slash
 author:
   name: bleutzinn
   email: bleutzinn@rwgc.nl
