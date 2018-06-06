@@ -129,7 +129,7 @@ The core of the functionality is provided by the Cookie Manager "tarteaucitron.j
 
 ## To Do
 
-- [ ] Create a demo
+- [ ] Create a demo (ETA 2018-06-20)
 - [ ] Use the Grav Shortcode Core Plugin to include the tarteaucitron.js third party services code blocks in the page content
 - [x] Make use of ipstack optional
 - [ ] Improve the way the JS library tarteaucitron.js is included in this plugin's source code
