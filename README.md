@@ -22,6 +22,10 @@ To create a Grav plugin which helps webmasters and developers of Grav websites t
 `testing: true` This plugin is in it's early stages. Help from the Grav community is welcome and needed to improve it.   
 For feature enhancement suggestions, questions, discussion, bug reports and Pull Requests (hint) please use the GitHub issues in this repository.
 
+## Demo
+
+A first demo is available at [https://festeto.net/grav-plugin-eprivacy-demo/](https://festeto.net/grav-plugin-eprivacy-demo/).
+
 ## Installation
 
 Installing the plugin can be done in three ways.
@@ -92,7 +96,7 @@ Here is the `e-privacy.yaml` configuration file default content:
 
 ```yaml
 enabled: true
-hashtag: '#eprivacy'
+anchortag: '#eprivacy'
 orientation: bottom
 ad_blocker: true
 show_alert_small: true
@@ -107,7 +111,7 @@ All options are available in the Admin panel:
 
 `enabled`: **Plugin status** (default **Enabled / `true`**)
 
-`hashtag`: **Popup hashtag**; Automatically open the popup when URL has this hashtag (default **'#eprivacy'**)
+`anchortag`: **Popup hashtag**; Automatically open the popup when URL has this anchor tag (default **'#eprivacy'**)
 
 `orientation`: **Position**; Position of the banner on the page (Top or Bottom, default **`bottom`**)
 
