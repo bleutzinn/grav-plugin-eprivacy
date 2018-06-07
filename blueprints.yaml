@@ -26,7 +26,7 @@ form:
         0: Disabled
       validate:
         type: bool
-    hashtag:
+    anchortag:
       type: text
       label: Popup anchor tag
       help: Automatically open the popup when URL has this anchor tag
