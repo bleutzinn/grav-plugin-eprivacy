@@ -2,7 +2,7 @@
 // Initialize tarteaucitron.js
 $( document ).ready(function() {
     window.tarteaucitron.init({
-        "hashtag": "{{ eprivacy.hashtag }}", /* Automatically open the panel with the hashtag */
+        "hashtag": "{{ eprivacy.anchortag }}", /* Automatically open the panel with the hashtag */
         "highPrivacy": true, /* disabling the auto consent feature on navigation? */
         "orientation": "{{ eprivacy.orientation }}", /* the big banner should be on 'top' or 'bottom'? */
         "adblocker": {{ eprivacy.ad_blocker ? 'true':'false' }}, /* Display a message if an adblocker is detected */

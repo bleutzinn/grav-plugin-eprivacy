@@ -1,5 +1,5 @@
 enabled: true
-hashtag: '#eprivacy'
+anchortag: '#eprivacy'
 orientation: bottom
 ad_blocker: true
 show_alert_small: true

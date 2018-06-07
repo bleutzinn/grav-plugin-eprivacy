@@ -28,8 +28,8 @@ form:
         type: bool
     hashtag:
       type: text
-      label: Popup hashtag
-      help: Automatically open the popup when URL has this hashtag
+      label: Popup anchor tag
+      help: Automatically open the popup when URL has this anchor tag
       size: medium
     orientation:
       type: select
