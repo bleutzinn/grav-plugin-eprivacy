@@ -46,6 +46,43 @@ You should now have all the plugin files under
 
     user/plugins/e-privacy
 
+
+## Usage
+
+The tarteaucitron.js library works like this:
+- as a developer or webmaster you replace the normal HTML and Javascript code of services such as Google Analytics and Twitter by the appropriate code as listed in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
+
+...
+
+Add third party services to your page as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
+
+In this 0.3.0 version of this plugin the best way to experiment is to include these code blocks in Twig templates.
+
+To ease this it is planned that a next version uses the Grav Shortcode Core Plugin to do that for you.
+
+## Requirements
+
+### ipstack IP to geolocation API
+
+The EU ePrivacy Regulations apply to EU citizens only. There is no way to know whether or not an anonymous visitors is a EU citizen except for asking him or her that question. (And maybe that must be a plugin feature?)
+
+The closest is deciding what to do based on the visitor's IP address. Most geo-ip services return the region or continent besides the country (code).
+
+A free ipstack account includes the special "is_eu" boolean flag:
+
+>location > is_eu&nbsp;&nbsp;&nbsp;&nbsp;Returns true or false depending on whether or not the county associated with the IP is in the European Union.
+
+Source: ipstack documentation, [online](https://ipstack.com/documentation#objects) (2018-06-03)
+
+Using ipstack is optional but adhering to the "safe mode" principle, without it all visitors are treated as if they originate from the EU.
+
+>Note: when developing and testing on localhost the value of "is_eu" is always `true`.
+
+### Shortcode Core Plugin
+
+The next version will require the Grav Shortcode Core Plugin as the mechanism to include the tarteaucitron.js third party services code blocks in the page content.
+
+
 ## Configuration
 
 If you use the admin plugin, a file with your configuration, and named 'e-privacy.yaml' will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin.   
@@ -92,44 +129,13 @@ All options are available in the Admin panel:
 
 For a better understanding of the tarteaucitron.js options please read the [tarteaucitron.js documentation](https://github.com/AmauriC/tarteaucitron.js).
 
-## Usage
-
-Add third party services to your page as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
-
-In this 0.3.0 version of this plugin the best way to experiment is to include these code blocks in Twig templates.
-
-To ease this it is planned that a next version uses the Grav Shortcode Core Plugin to do that for you.
-
-## Requirements
-
-### ipstack IP to geolocation API
-
-The EU ePrivacy Regulations apply to EU citizens only. There is no way to know whether or not an anonymous visitors is a EU citizen except for asking him or her that question. (And maybe that must be a plugin feature?)
-
-The closest is deciding what to do based on the visitor's IP address. Most geo-ip services return the region or continent besides the country (code).
-
-A free ipstack account includes the special "is_eu" boolean flag:
-
->location > is_eu&nbsp;&nbsp;&nbsp;&nbsp;Returns true or false depending on whether or not the county associated with the IP is in the European Union.
-
-Source: ipstack documentation, [online](https://ipstack.com/documentation#objects) (2018-06-03)
-
-Using ipstack is optional but adhering to the "safe mode" principle, without it all visitors are treated as if they originate from the EU.
-
->Note: when developing and testing on localhost the value of "is_eu" is always `true`.
-
-### Shortcode Core Plugin
-
-The next version will require the Grav Shortcode Core Plugin as the mechanism to include the tarteaucitron.js third party services code blocks in the page content.
-
-
 ## Credits
 
 The core of the functionality is provided by the Cookie Manager "tarteaucitron.js", see [website](https://opt-out.ferank.eu/en/) and [GitHub](https://github.com/AmauriC/tarteaucitron.js).
 
 ## To Do
 
-- [ ] Create a demo
+- [ ] Create a demo (ETA 2018-06-20)
 - [ ] Use the Grav Shortcode Core Plugin to include the tarteaucitron.js third party services code blocks in the page content
 - [x] Make use of ipstack optional
 - [ ] Improve the way the JS library tarteaucitron.js is included in this plugin's source code
