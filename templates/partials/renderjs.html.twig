@@ -1,4 +1,4 @@
-
+// Inline JS added by ePrivacy Plugin
 // Initialize tarteaucitron.js
 $( document ).ready(function() {
     window.tarteaucitron.init({
@@ -17,7 +17,8 @@ $( document ).ready(function() {
     var showActivators = Boolean({{ eprivacy.show_activators ? 1 : 0 }});
     if (showActivators === false) {
         // Hide activators by some custom CSS
-        // Not very elegant but this doesn't work: $('.tac_activate').css('display', 'none');
+        // Not very elegant but this doesn't work:
+        // $('.tac_activate').css('display', 'none');
         $("<style>.tac_activate {display: none}</style>").appendTo("body");
     };
 
