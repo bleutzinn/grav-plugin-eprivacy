@@ -22,69 +22,40 @@ To create a Grav plugin which helps webmasters and developers of Grav websites t
 `testing: true` This plugin is in it's early stages. Help from the Grav community is welcome and needed to improve it.   
 For feature enhancement suggestions, questions, discussion, bug reports and Pull Requests (hint) please use the GitHub issues in this repository.
 
+
 ## Demo
 
 A first demo is available at [https://festeto.net/grav-plugin-eprivacy-demo/](https://festeto.net/grav-plugin-eprivacy-demo/).
 
-## Installation
-
-Installing the plugin can be done in three ways.
-
-### Admin Plugin
-
-If you use the admin plugin, you can install directly through the admin panel by going to `Plugins` and clicking on the `Add` button.
-
-### GPM Installation
-
-Another way to install is via the [Grav Package Manager (GPM)](http://learn.getgrav.org/advanced/grav-gpm) through your system's terminal (also called the command line).  From the root of your Grav install type:
-
-    bin/gpm install e-privacy
-
-This will install the ePrivacy plugin into your `/user/plugins` directory within Grav. Its files can be found under `user/plugins/e-privacy`.
-
-### Manual Installation
-
-To manually install this plugin, just download the zip version of this repository and unzip it under `user/plugins`. Then, rename the folder to `e-privacy`. You can find these files on [GitHub](https://github.com/bleutzinn/grav-plugin-eprivacy) or via [GetGrav.org](http://getgrav.org/downloads/plugins#extras).
-
-You should now have all the plugin files under
-
-    user/plugins/e-privacy
-
-
 ## Usage
 
-The tarteaucitron.js library works like this:
-- as a developer or webmaster you replace the normal HTML and Javascript code of services such as Google Analytics and Twitter by the appropriate code as listed in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
+### Adding services
 
-...
+Developer and webmasters must replace the usual code of services such as Google Analytics and Twitter by the appropriate code as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
 
-Add third party services to your page as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
-
-In this 0.3.0 version of this plugin the best way to experiment is to include these code blocks in Twig templates.
+In this 0.4.0 version of this plugin the best way to experiment is to include these code blocks in Twig templates.
 
 To ease this it is planned that a next version uses the Grav Shortcode Core Plugin to do that for you.
 
-## Requirements
+### Testing
 
-### ipstack IP to geolocation API
+For testing it is possible to force a page being treated as if it was visited from the EU by using this in page frontmatter:
 
-The EU ePrivacy Regulations apply to EU citizens only. There is no way to know whether or not an anonymous visitors is a EU citizen except for asking him or her that question. (And maybe that must be a plugin feature?)
+```
+eprivacy:
+    override: true
+    is_eu: true
+```
 
-The closest is deciding what to do based on the visitor's IP address. Most geo-ip services return the region or continent besides the country (code).
+Similarly, this will simulate a request from a non-EU member country:
 
-A free ipstack account includes the special "is_eu" boolean flag:
+```
+eprivacy:
+    override: true
+    is_eu: false
+```
 
->location > is_eu&nbsp;&nbsp;&nbsp;&nbsp;Returns true or false depending on whether or not the county associated with the IP is in the European Union.
-
-Source: ipstack documentation, [online](https://ipstack.com/documentation#objects) (2018-06-03)
-
-Using ipstack is optional but adhering to the "safe mode" principle, without it all visitors are treated as if they originate from the EU.
-
->Note: when developing and testing on localhost the value of "is_eu" is always `true`.
-
-### Shortcode Core Plugin
-
-The next version will require the Grav Shortcode Core Plugin as the mechanism to include the tarteaucitron.js third party services code blocks in the page content.
+To disable the override use `override: false` or delete this frontmatter if done with testing.
 
 
 ## Configuration
@@ -132,6 +103,53 @@ All options are available in the Admin panel:
 ---
 
 For a better understanding of the tarteaucitron.js options please read the [tarteaucitron.js documentation](https://github.com/AmauriC/tarteaucitron.js).
+
+
+## Requirements
+
+### ipstack IP to geolocation API
+
+The EU ePrivacy Regulations apply to EU citizens only. There is no way to know whether or not an anonymous visitors is a EU citizen except for asking him or her that question. (And maybe that must be a plugin feature?)
+
+The closest is deciding what to do based on the visitor's IP address. Most geo-ip services return the region or continent besides the country (code).
+
+A free ipstack account includes the special "is_eu" boolean flag:
+
+>location > is_eu&nbsp;&nbsp;&nbsp;&nbsp;Returns true or false depending on whether or not the county associated with the IP is in the European Union.
+
+Source: ipstack documentation, [online](https://ipstack.com/documentation#objects) (2018-06-03)
+
+Using ipstack is optional but adhering to the "safe mode" principle, without it all visitors are treated as if they originate from the EU.
+
+>Note: when developing and testing on localhost the value of "is_eu" is always `true`.
+
+### Shortcode Core Plugin
+
+The next version will require the Grav Shortcode Core Plugin as the mechanism to include the tarteaucitron.js third party services code blocks in the page content.
+
+## Installation
+
+Installing the plugin can be done in three ways.
+
+### Admin Plugin
+
+If you use the admin plugin, you can install directly through the admin panel by going to `Plugins` and clicking on the `Add` button.
+
+### GPM Installation
+
+Another way to install is via the [Grav Package Manager (GPM)](http://learn.getgrav.org/advanced/grav-gpm) through your system's terminal (also called the command line).  From the root of your Grav install type:
+
+    bin/gpm install e-privacy
+
+This will install the ePrivacy plugin into your `/user/plugins` directory within Grav. Its files can be found under `user/plugins/e-privacy`.
+
+### Manual Installation
+
+To manually install this plugin, just download the zip version of this repository and unzip it under `user/plugins`. Then, rename the folder to `e-privacy`. You can find these files on [GitHub](https://github.com/bleutzinn/grav-plugin-eprivacy) or via [GetGrav.org](http://getgrav.org/downloads/plugins#extras).
+
+You should now have all the plugin files under
+
+    user/plugins/e-privacy
 
 ## Credits
 
