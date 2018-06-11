@@ -1,3 +1,9 @@
+# v0.4.0
+##  06/011/2018
+
+1. [](#new)
+    * Added frontmatter config override
+
 # v0.3.0
 ##  06/04/2018
 
