@@ -109,21 +109,40 @@ class EPrivacyPlugin extends Plugin
      */
     public function onTwigSiteVariables()
     {
-        // Use a cookie to limit ipstack requests
-        $cookie_value = [];
-        if (isset ($_COOKIE[$this->cookie_name])) {
-            // Get value from cookie
-            $cookie_value = json_decode($_COOKIE[$this->cookie_name], true);
-            $is_eu = $cookie_value['is_eu'];
-        }
-        else {
-            // No cookie yet so determine whether the visitor IP address is
-            // from a EU member state by a request to ipstack
-            $is_eu = $this->isEU();
+        $page = $this->grav['page'];
+        $header = $page->header();
 
-            // Set cookie with expiry of one year
-            $cookie_value['is_eu'] = $is_eu;
-            setcookie($this->cookie_name, json_encode($cookie_value), time()+60*60*24*365);
+        // Initialize $is_eu flag
+        $is_eu = null;
+
+        // Check frontmatter for page level overrides
+        if ($header->eprivacy['override'] === true) {
+            if (isset($header->eprivacy['is_eu']) && gettype($header->eprivacy['is_eu']) == boolean) {
+                $is_eu = $header->eprivacy['is_eu'];
+            }
+            else {
+                $is_eu = null;
+            }
+        }
+
+        // Set $is_eu if override was not done or not valid
+        if (is_null($is_eu)) {
+            // Use previously stored cookie if present to limit ipstack requests
+            $cookie_value = [];
+            if (isset ($_COOKIE[$this->cookie_name])) {
+                // Get value from cookie
+                $cookie_value = json_decode($_COOKIE[$this->cookie_name], true);
+                $is_eu = $cookie_value['is_eu'];
+            }
+            else {
+                // No cookie yet so determine whether the visitor IP address is
+                // from a EU member state by a request to ipstack
+                $is_eu = $this->isEU();
+
+                // Set cookie with expiry of one year
+                $cookie_value['is_eu'] = $is_eu;
+                setcookie($this->cookie_name, json_encode($cookie_value), time()+60*60*24*365);
+            }
         }
 
         if ($is_eu) {
@@ -134,8 +153,11 @@ class EPrivacyPlugin extends Plugin
             // Get ePrivacy plugin config
             $config = $this->config->get('plugins.eprivacy');
             
+            $config['pagetitle'] = $this->quoteStr($header->title);
             // Add is_eu flag to config
-            $config['is_eu'] = $is_eu;
+            $config['is_eu'] = (bool)$is_eu;
+
+            //$assets->addInlineJS("tarteaucitron.user.disqusShortname = 'eprivacyplugindemo';(tarteaucitron.job = tarteaucitron.job || []).push('disqus');");
             
             // Add inline Javascript rendered by a custom template
             $assets->addInlineJs($this->grav['twig']->twig->render('partials/renderjs.html.twig', array('eprivacy' => $config)));
@@ -152,5 +174,13 @@ class EPrivacyPlugin extends Plugin
     public function onTwigTemplatePaths()
     {
         $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
+    }
+
+    /**
+     * Return string in quotes.
+     */
+    public function quoteStr($str)
+    {
+        return "'" . $str . "'";
     }
 }
