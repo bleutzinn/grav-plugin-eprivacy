@@ -1,5 +1,11 @@
+# v0.4.1
+##  06/12/2018
+
+1. [](#improved)
+    * Extended frontmatter config override to all config parameters
+
 # v0.4.0
-##  06/011/2018
+##  06/11/2018
 
 1. [](#new)
     * Added frontmatter config override

@@ -27,36 +27,6 @@ For feature enhancement suggestions, questions, discussion, bug reports and Pull
 
 A first demo is available at [https://festeto.net/grav-plugin-eprivacy-demo/](https://festeto.net/grav-plugin-eprivacy-demo/).
 
-## Usage
-
-### Adding services
-
-Developer and webmasters must replace the usual code of services such as Google Analytics and Twitter by the appropriate code as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
-
-In this 0.4.0 version of this plugin the best way to experiment is to include these code blocks in Twig templates.
-
-To ease this it is planned that a next version uses the Grav Shortcode Core Plugin to do that for you.
-
-### Testing
-
-For testing it is possible to force a page being treated as if it was visited from the EU by using this in page frontmatter:
-
-```
-eprivacy:
-    override: true
-    is_eu: true
-```
-
-Similarly, this will simulate a request from a non-EU member country:
-
-```
-eprivacy:
-    override: true
-    is_eu: false
-```
-
-To disable the override use `override: false` or delete this frontmatter if done with testing.
-
 
 ## Configuration
 
@@ -105,6 +75,42 @@ All options are available in the Admin panel:
 For a better understanding of the tarteaucitron.js options please read the [tarteaucitron.js documentation](https://github.com/AmauriC/tarteaucitron.js).
 
 
+
+## Usage
+
+### Adding services
+
+Developer and webmasters must replace the usual code of services such as Google Analytics and Twitter by the appropriate code as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
+
+In this 0.4.0 version of this plugin the best way to experiment is to include these code blocks in Twig templates.
+
+To ease this it is planned that a next version uses the Grav Shortcode Core Plugin to do that for you.
+
+### Testing
+
+Mainly for testing it is possible to override the global configuration as set in the file `user/config/plugins/e-privacy.yaml` or via the Admin panel through page frontmatter.
+
+For example to force a page being treated as if it was visited from the EU and have the banner show at the top of the page use this in the page frontmatter:
+
+```
+eprivacy:
+    override: true
+    is_eu: true
+    orientation: top
+```
+
+Similarly, this will simulate a request from a non-EU member country:
+
+```
+eprivacy:
+    override: true
+    is_eu: false
+    orientation: top
+```
+
+To temporarily disable the override use `override: false` or delete this frontmatter if done with testing.
+
+
 ## Requirements
 
 ### ipstack IP to geolocation API
@@ -131,11 +137,11 @@ The next version will require the Grav Shortcode Core Plugin as the mechanism to
 
 Installing the plugin can be done in three ways.
 
-### Admin Plugin
+### Admin Plugin (not available for this version)
 
 If you use the admin plugin, you can install directly through the admin panel by going to `Plugins` and clicking on the `Add` button.
 
-### GPM Installation
+### GPM Installation (not available for this version)
 
 Another way to install is via the [Grav Package Manager (GPM)](http://learn.getgrav.org/advanced/grav-gpm) through your system's terminal (also called the command line).  From the root of your Grav install type:
 

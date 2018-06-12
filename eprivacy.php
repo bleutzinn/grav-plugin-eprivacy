@@ -111,6 +111,9 @@ class EPrivacyPlugin extends Plugin
     {
         $page = $this->grav['page'];
         $header = $page->header();
+            
+        // Get ePrivacy plugin config
+        $config = $this->config->get('plugins.eprivacy');
 
         // Initialize $is_eu flag
         $is_eu = null;
@@ -122,6 +125,11 @@ class EPrivacyPlugin extends Plugin
             }
             else {
                 $is_eu = null;
+            }
+            foreach ($config as $k => $v) {
+                if (isset($header->eprivacy[$k])) {
+                    $config[$k] = $header->eprivacy[$k];
+                }
             }
         }
 
@@ -145,17 +153,15 @@ class EPrivacyPlugin extends Plugin
             }
         }
 
+        // Add is_eu flag to config
+        $config['is_eu'] = (bool)$is_eu;
+
         if ($is_eu) {
             // Visit from EU member state so activate tarteaucitron.js
             $assets = $this->grav['assets'];
             $assets->addJs('plugin://eprivacy/tarteaucitron/tarteaucitron.js');
             
-            // Get ePrivacy plugin config
-            $config = $this->config->get('plugins.eprivacy');
-            
-            $config['pagetitle'] = $this->quoteStr($header->title);
-            // Add is_eu flag to config
-            $config['is_eu'] = (bool)$is_eu;
+            //$config['pagetitle'] = $this->quoteStr($header->title);
 
             //$assets->addInlineJS("tarteaucitron.user.disqusShortname = 'eprivacyplugindemo';(tarteaucitron.job = tarteaucitron.job || []).push('disqus');");
             
