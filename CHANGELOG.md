@@ -1,3 +1,14 @@
+# v0.5.0
+##  06/19/2018
+
+1. [](#new)
+    * Supports shortcodes to add service tags in page content
+    * Added plugin configuration in Admin panel (blueprint)
+    * Created services configuration in Admin panel for the first few services (Disqus, Google Maps, Google Tag Manager, Pinterest and Twitter)
+    * Added cookies_expire and handle_dnt_request options
+1. [](#improved)
+    * Upgraded tarteaucitron.js 
+
 # v0.4.1
 ##  06/12/2018
 

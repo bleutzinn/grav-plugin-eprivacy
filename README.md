@@ -7,19 +7,28 @@ The **ePrivacy** Plugin is for [Grav CMS](https://getgrav.org/). It's purpose is
 
 Source: "Difference between GDPR and ePrivacy regulation", PrivacyTrust, [online](https://www.privacytrust.com/guidance/gdpr-vs-eprivacy-regulation.html) (2018-06-03)
 
-## Mission and principles
+## Introduction
 
-### Mission
+### The engine and the body work
 
-To create a Grav plugin which helps webmasters and developers of Grav websites to comply with the EU ePrivacy Regulations.
+The unique Javascript library [tarteaucitron.js](https://github.com/AmauriC/tarteaucitron.js) is what does all the hard and difficult work of asking for consent and only adds the corresponding code when consent for it has been given (partly depending upon configuration). In this respect tarteaucitron.js is the engine.
 
-### Principles
+This plugin is merely a piece of body work which wraps the tarteaucitron.js library and makes it easy to use in the Grav CMS.
 
-- "Safe mode": In ambiguous situations features are implemented in such a way that the privacy of the visitor is respected to the fullest.
+### Mission and principles
 
-## Status
+#### Mission
 
-`testing: true` This plugin is in it's early stages. Help from the Grav community is welcome and needed to improve it.   
+To create a Grav plugin which helps webmasters and developers of Grav CMS websites to comply with the EU ePrivacy Regulations.
+
+#### Principles
+
+- Adhere as closely as possible to the EU ePrivacy Regulations;
+- In ambiguous situations features are implemented in such a way that the privacy of the visitor is respected to the fullest ("Safe mode").
+
+### Status
+
+`testing: true` This plugin is still in it's early stages. Help from the Grav community is welcome and needed to improve it.   
 For feature enhancement suggestions, questions, discussion, bug reports and Pull Requests (hint) please use the GitHub issues in this repository.
 
 
@@ -30,8 +39,9 @@ A first demo is available at [https://festeto.net/grav-plugin-eprivacy-demo/](ht
 
 ## Configuration
 
-If you use the admin plugin, a file with your configuration, and named 'e-privacy.yaml' will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin.   
-Without the admin plugin, before configuring this plugin, you should copy the `user/plugins/e-privacy/e-privacy.yaml` to `user/config/plugins/e-privacy.yaml` and only edit that copy.
+If you use the Admin plugin, a file with your configuration named `e-privacy.yaml` will be saved in the `user/config/plugins/` folder once the configuration is saved in Admin.
+
+Without the Admin plugin, before configuring this plugin, you should copy the `user/plugins/e-privacy/e-privacy.yaml` to `user/config/plugins/e-privacy.yaml` and only edit that copy.
 
 Here is the `e-privacy.yaml` configuration file default content:
 
@@ -41,9 +51,11 @@ anchortag: '#eprivacy'
 orientation: bottom
 ad_blocker: true
 show_alert_small: true
+handle_dnt_request: true
 cookieslist: true
 remove_credit: false
 ipstack_api_key: ''
+cookies_expiry: 365
 cookie_domain: ''
 show_activators: false
 ```
@@ -58,11 +70,15 @@ All options are available in the Admin panel:
 
 `ad_blocker`: **Adblocker alert**; Display a message if an adblocker is detected (default **Enabled / `true`**)
 
-`show_alert_small`: **Small banner**; Always show the small banner on the page (default: **Enabled / `true`**)
+`show_alert_small`: **Handle browser DoNotTrack**; Handle browser DoNotTrack request setting (default: **Enabled / `true`**)
 
-`cookieslist`: **List cookies**; Display the list of cookies installed (default **Enabled / `true`**)
+`handle_dnt_request`: **Small banner**; Always show the small banner on the page (default: **Enabled / `true`**)
+
+`cookies_expire`: **Cookies Expire**; How long in days the tarteaucitron.js cookie lasts (max. 365) (default **365**)
 
 `remove_credit`: **Remove credit link**; Remove credit link to tarteaucitron.js (default **Disabled / `false`**)
+
+`cookies_expire`: **List cookies**; Display the list of cookies installed (default **Enabled / `true`**)
 
 `cookie_domain`: **Cookie sudomains**; Domain name on which the cookie for the subdomains will be placed
 
@@ -75,18 +91,31 @@ All options are available in the Admin panel:
 For a better understanding of the tarteaucitron.js options please read the [tarteaucitron.js documentation](https://github.com/AmauriC/tarteaucitron.js).
 
 
+## Terminology
+
+### "services" and "service tags"
+
+tarteaucitron.js uses the term "services" for the functionality provided by third-party partners like Facebook and the required code to be used in your website.    
+To indicate such code blocks in JavaScript, HTML or both this plugin uses the term "service tags". 
 
 ## Usage
 
-### Adding services
+### Adding third-party services through service tags
 
-Developer and webmasters must replace the usual code of services such as Google Analytics and Twitter by the appropriate code as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/).
+The ePrivacy Plugin comes with all tarteaucitron.js service code blocks as documented by tarteaucitron.js in [Step 3: Add your services](https://opt-out.ferank.eu/en/install/) as service tags.
 
-In this 0.4.0 version of this plugin the best way to experiment is to include these code blocks in Twig templates.
+Service tags can be used as Twig variables in Twig (theme) templates and as shortcodes. 
 
-To ease this it is planned that a next version uses the Grav Shortcode Core Plugin to do that for you.
+### Service tags as Twig variables
 
-### Testing
+Including a Third-party Tag in one of your theme templates is as simple as using any other Twig variable. This is one example: `{{ eprivacy.twitter }}`.
+
+### Service tags as shortcodes
+
+To insert a service tag inside your page markdown use the normal shortcode syntax like `[eprivacy-twitter][/eprivacy-twitter]` or the even shorter version `[eprivacy-twitter /]`.
+
+
+## Testing
 
 Mainly for testing it is possible to override the global configuration as set in the file `user/config/plugins/e-privacy.yaml` or via the Admin panel through page frontmatter.
 
@@ -159,13 +188,15 @@ You should now have all the plugin files under
 
 ## Credits
 
-The core of the functionality is provided by the Cookie Manager "tarteaucitron.js", see [website](https://opt-out.ferank.eu/en/) and [GitHub](https://github.com/AmauriC/tarteaucitron.js).
+- The core of the functionality is provided by the Cookie Manager "tarteaucitron.js", see [website](https://opt-out.ferank.eu/en/) and [GitHub](https://github.com/AmauriC/tarteaucitron.js);
+- Thanks goes to **perlkonig** for valuable advise during development.
 
 ## To Do
 
-- [ ] Create a demo (ETA 2018-06-20)
-- [ ] Use the Grav Shortcode Core Plugin to include the tarteaucitron.js third party services code blocks in the page content
-- [x] Make use of ipstack optional
-- [ ] Improve the way the JS library tarteaucitron.js is included in this plugin's source code
-- [ ] Actively engage with the Grav community to improve this plugin (remains unchecked)
+- [x] Create a demo (ETA 2018-06-20). Try the [demo](https://festeto.net/grav-plugin-eprivacy-demo/).
+- [x] Use the Grav Shortcode Core Plugin to include the tarteaucitron.js third party services code blocks in the page content. Shortcode support is implemented without the use of the Grav Shortcode Core Plugin.
+- [x] Make use of ipstack optional.
+- [ ] Store consent.
+- [ ] Improve the way the JS library tarteaucitron.js is included in this plugin's source code.
+- [ ] Actively engage with the Grav community to improve this plugin (remains unchecked).
 
