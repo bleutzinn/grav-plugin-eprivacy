@@ -28,8 +28,8 @@ To create a Grav plugin which helps webmasters and developers of Grav CMS websit
 
 ### Status
 
-`testing: true` This plugin is still in it's early stages. Help from the Grav community is welcome and needed to improve it.   
-For feature enhancement suggestions, questions, discussion, bug reports and Pull Requests (hint) please use the GitHub issues in this repository.
+`testing: true` This plugin is maturing but still **not ready for production**. Help from the Grav community is welcome and needed to improve it.   
+For feature enhancement suggestions, questions, discussion, bug reports and Pull Requests (hint) please use the [issues](https://github.com/bleutzinn/grav-plugin-eprivacy/issues) feature in this repository.
 
 
 ## Demo
