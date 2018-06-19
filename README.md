@@ -26,7 +26,7 @@ To create a Grav plugin which helps webmasters and developers of Grav CMS websit
 - Adhere as closely as possible to the EU ePrivacy Regulations;
 - In ambiguous situations features are implemented in such a way that the privacy of the visitor is respected to the fullest ("Safe mode").
 
-### Status
+## Status
 
 `testing: true` This plugin is maturing but still **not ready for production**. Help from the Grav community is welcome and needed to improve it.   
 For feature enhancement suggestions, questions, discussion, bug reports and Pull Requests (hint) please use the [issues](https://github.com/bleutzinn/grav-plugin-eprivacy/issues) feature in this repository.
