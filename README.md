@@ -95,8 +95,8 @@ For a better understanding of the tarteaucitron.js options please read the [tart
 
 ### "services" and "service tags"
 
-tarteaucitron.js uses the term "services" for the functionality provided by third-party partners like Facebook and the required code to be used in your website.    
-To indicate such code blocks in JavaScript, HTML or both this plugin uses the term "service tags". 
+tarteaucitron.js uses the term "services" for the functionality provided by third-party service providers or partners like Facebook and the required code blocks.    
+To indicate such code blocks this plugin uses the term "service tags". 
 
 ## Usage
 
@@ -158,9 +158,6 @@ Using ipstack is optional but adhering to the "safe mode" principle, without it 
 
 >Note: when developing and testing on localhost the value of "is_eu" is always `true`.
 
-### Shortcode Core Plugin
-
-The next version will require the Grav Shortcode Core Plugin as the mechanism to include the tarteaucitron.js third party services code blocks in the page content.
 
 ## Installation
 
