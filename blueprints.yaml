@@ -311,6 +311,17 @@ form:
             0: Disabled
           validate:
             type: bool
+        remove_credit:
+          type: toggle
+          label: Remove credit link
+          help: Remove credit link to tarteaucitron.js
+          highlight: 0
+          default: 0
+          options:
+            1: Enabled
+            0: Disabled
+          validate:
+            type: bool
         handle_dnt_request:
           type: toggle
           label: Handle browser DoNotTrack
@@ -327,17 +338,6 @@ form:
           label: List cookies
           help: Display the list of cookies installed
           highlight: 1
-          default: 0
-          options:
-            1: Enabled
-            0: Disabled
-          validate:
-            type: bool
-        remove_credit:
-          type: toggle
-          label: Remove credit link
-          help: Remove credit link to tarteaucitron.js
-          highlight: 0
           default: 0
           options:
             1: Enabled
