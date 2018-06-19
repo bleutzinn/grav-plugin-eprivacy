@@ -11,7 +11,24 @@ use RocketTheme\Toolbox\Event\Event;
 class EPrivacyPlugin extends Plugin
 {
 
-    protected $cookie_name = 'ePrivacyConfig';
+    public $cookie_name = 'ePrivacyConfig';
+    public static $services = [];
+    
+
+    /**
+     * Get configured services configuration from plugin config 
+     * 
+     * 
+     */
+    public function getServices()
+    {
+        // Get ePrivacy plugin config
+        $config = $this->config->get('plugins.eprivacy');
+        
+        self::$services = $config['services'];
+        
+    }
+
 
     /**
      * @return array
@@ -43,7 +60,7 @@ class EPrivacyPlugin extends Plugin
      * 
      * @return boolean $is_eu
      */
-    protected function isEU()
+    public static function isEU()
     {
         // Get IP address of visitor
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -98,9 +115,59 @@ class EPrivacyPlugin extends Plugin
 
         // Enable the main event we are interested in
         $this->enable([
+            'onPagesInitialized' => ['onPagesInitialized', 0],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
-            'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0]
+            'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0],
         ]);
+    }
+
+    
+    /**
+     * Do some work for this event, full details of events can be found
+     * on the learn site: http://learn.getgrav.org/plugins/event-hooks
+     *
+     * @param Event $e
+     */
+    public function onPagesInitialized(Event $e)
+    {
+        // Get ePrivacy plugin config
+        $config = $this->config->get('plugins.eprivacy');
+        $services = $config['services'];
+
+        $page = $this->grav['page'];
+        
+        // Get page content
+        $content = $page->rawMarkdown();
+
+        /*
+            Search and replace shortcodes in two steps.
+            First search and replace the long notation (BTW blabla is ignored):
+            [eprivacy-pinterest]blabla[/eprivacy-pinterest]
+            preg_match_all('/\[eprivacy-([a-zA-Z0-9_\-]+?)\](?:.*\n*)\[\/eprivacy-\1\]/is', $md, $matches);
+            Secondly do the short notation:
+            [eprivacy-twit-9T_-ter/]
+            preg_match_all('/\[eprivacy-([a-zA-Z0-9_\-]+?)\s*\/\]/is', $md, $matches);
+            
+        */
+        preg_match_all('/\[eprivacy-([a-zA-Z0-9_\-]+?)\](?:.*\n*)\[\/eprivacy-\1\]/is', $content, $matches);
+
+        foreach ($matches[1] as $key => $match) {
+
+            $tag = $this->grav['twig']->twig->render($match.'.twig', array('eprivacy' => array($match => $services[$match])));
+
+            $content = str_replace($matches[0][$key], $tag, $content);
+        }
+
+        preg_match_all('/\[eprivacy-([a-zA-Z0-9_\-]+?)\s*\/\]/is', $content, $matches);
+
+        foreach ($matches[1] as $key => $match) {
+
+            $tag = $this->grav['twig']->twig->render($match.'.twig', array('eprivacy' => array($match => $services[$match])));
+            $content = str_replace($matches[0][$key], $tag, $content);
+        }
+        // Save content
+        $this->grav['page']->rawMarkdown($content);
+    
     }
 
 
@@ -114,6 +181,7 @@ class EPrivacyPlugin extends Plugin
             
         // Get ePrivacy plugin config
         $config = $this->config->get('plugins.eprivacy');
+        $services = $config['services'];
 
         // Initialize $is_eu flag
         $is_eu = null;
@@ -160,17 +228,23 @@ class EPrivacyPlugin extends Plugin
             // Visit from EU member state so activate tarteaucitron.js
             $assets = $this->grav['assets'];
             $assets->addJs('plugin://eprivacy/tarteaucitron/tarteaucitron.js');
-            
-            //$config['pagetitle'] = $this->quoteStr($header->title);
+           
+            // Add inline Javascript to initialize TAC (rendered by a custom template)
+            $assets->addInlineJs($this->grav['twig']->twig->render('init_tarteaucitron.twig', array('eprivacy' => $config)));
 
-            //$assets->addInlineJS("tarteaucitron.user.disqusShortname = 'eprivacyplugindemo';(tarteaucitron.job = tarteaucitron.job || []).push('disqus');");
-            
-            // Add inline Javascript rendered by a custom template
-            $assets->addInlineJs($this->grav['twig']->twig->render('partials/renderjs.html.twig', array('eprivacy' => $config)));
+            // Add inline Javascript to add all services to TAC
+            $assets->addInlineJs($this->grav['twig']->twig->render('add_service_jobs.twig', array('eprivacy' => array_keys($services))));
+
         }
 
         // Pass on variable(s) for use in Twig templates
         $this->grav['twig']->twig_vars['eprivacy']['is_eu'] = $is_eu;
+
+        foreach ($services as $this->name => $this->params) {
+            // Create Twig variable for service ready to be used in a template
+            $service_js = $this->grav['twig']->twig->render($this->name.'.twig', array('eprivacy' => array($this->name => $this->params)));
+            $this->grav['twig']->twig_vars['eprivacy'][$this->name] = $service_js;
+        }
         
     }
 
@@ -179,7 +253,10 @@ class EPrivacyPlugin extends Plugin
      */
     public function onTwigTemplatePaths()
     {
+        // Add plugin templates path
         $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
+        $this->grav['twig']->twig_paths[] = __DIR__ . '/templates/partials';
+
     }
 
     /**
