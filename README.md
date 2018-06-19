@@ -51,13 +51,13 @@ anchortag: '#eprivacy'
 orientation: bottom
 ad_blocker: true
 show_alert_small: true
+remove_credit: false
 handle_dnt_request: true
 cookieslist: true
-remove_credit: false
-ipstack_api_key: ''
 cookies_expiry: 365
 cookie_domain: ''
 show_activators: false
+ipstack_api_key: ''
 ```
 
 All options are available in the Admin panel:
@@ -72,19 +72,19 @@ All options are available in the Admin panel:
 
 `show_alert_small`: **Handle browser DoNotTrack**; Handle browser DoNotTrack request setting (default: **Enabled / `true`**)
 
+`remove_credit`: **Remove credit link**; Remove credit link to tarteaucitron.js (default **Disabled / `false`**)
+
 `handle_dnt_request`: **Small banner**; Always show the small banner on the page (default: **Enabled / `true`**)
+
+`cookieslist`: **List cookies**; Display the list of cookies installed (default **Enabled / `true`**)
 
 `cookies_expire`: **Cookies Expire**; How long in days the tarteaucitron.js cookie lasts (max. 365) (default **365**)
 
-`remove_credit`: **Remove credit link**; Remove credit link to tarteaucitron.js (default **Disabled / `false`**)
-
-`cookies_expire`: **List cookies**; Display the list of cookies installed (default **Enabled / `true`**)
-
 `cookie_domain`: **Cookie sudomains**; Domain name on which the cookie for the subdomains will be placed
 
-`ipstack_api_key`: **ipstack API Access Key**; ipstack is used to lookup whether a visit is from a EU member state
-
 `show_activators`: **Show activators**; Show activator buttons for disabled services (default **Disabled /  `false`**)
+
+`ipstack_api_key`: **ipstack API Access Key**; ipstack is used to lookup whether a visit is from a EU member state
 
 ---
 
