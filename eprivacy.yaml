@@ -3,8 +3,10 @@ anchortag: '#eprivacy'
 orientation: bottom
 ad_blocker: true
 show_alert_small: true
+handle_dnt_request: true
 cookieslist: true
 remove_credit: false
 ipstack_api_key: ''
+cookies_expire: 365
 cookie_domain: ''
 show_activators: false
