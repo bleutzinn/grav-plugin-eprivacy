@@ -1,5 +1,5 @@
 name: ePrivacy
-version: 0.4.1
+version: 0.5.0
 testing: true
 description: Helps with EU ePrivacy Regulations (GDPR) compliance
 icon: eye-slash
@@ -15,6 +15,9 @@ license: MIT
 
 form:
   validation: strict
+  rules:
+    number:
+      pattern: "[0-9]+"
   fields:
     enabled:
       type: toggle
@@ -26,82 +29,358 @@ form:
         0: Disabled
       validate:
         type: bool
-    anchortag:
-      type: text
-      label: Popup anchor tag
-      help: Automatically open the popup when URL has this anchor tag
-      size: medium
-    orientation:
-      type: select
-      size: medium
-      label: Position
-      default: bottom
-      help: Position of the banner on the page
-      options:
-        bottom: Bottom
-        top: Top
-    ad_blocker:
-      type: toggle
-      label: Adblocker alert
-      help: Display a message if an adblocker is detected
-      highlight: 1
-      default: 0
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
-    show_alert_small:
-      type: toggle
-      label: Small banner
-      help: Always show the small banner on the page
-      highlight: 1
-      default: 0
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
-    cookieslist:
-      type: toggle
-      label: List cookies
-      help: Display the list of cookies installed
-      highlight: 1
-      default: 0
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
-    remove_credit:
-      type: toggle
-      label: Remove credit link
-      help: Remove credit link to tarteaucitron.js
-      highlight: 0
-      default: 0
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
-    cookie_domain: 
-      type: text
-      label: Cookie sudomains
-      help: Domain name on which the cookie for the subdomains will be placed
-      size: medium
-    ipstack_api_key:
-      type: text
-      label: ipstack API Access Key
-      help: ipstack is used to lookup whether a visit is from a EU member state
-      size: medium
-    show_activators:
-      type: toggle
-      label: Show activators
-      help: Show activator buttons for disabled services
-      highlight: 0
-      default: 0
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
+
+    tacserviceoptions:
+      type: section
+      title: 'Services configuration'
+      underline: true
+
+      fields:
+        info:
+            type: display
+            size: large
+            label: Instructions
+            content: 'Enable and configure all services per category using these tabs'
+            markdown: false
+          #..... subfields
+        tabs:
+          type: tabs
+          active: 4
+
+          fields:
+            advertisingnetwork:
+              type: tab
+              title: 'Advertising network'
+              fields:
+                info:
+                  type: display
+                  size: large
+                  label: None
+                  content: "There are no *Advertising network* services defined in `eprivacy/blueprints.yaml` yet"
+                  markdown: true
+
+            apis:
+              type: tab
+              title: 'APIs'
+              fields:
+                googlemaps:
+                  type: fieldset
+                  title: Google Maps
+                  help: Third-party Tag configuration for Google Maps
+                  info: (googlemaps)
+                  text: 'Shortcode: [eprivacy-googlemaps /] ; Twig variable: {{ eprivacy.googlemaps }}'
+                  collapsed: true     # Initial state of fieldset (see collapsible option)
+                  collapsible: true    # Whether one can expand the fieldset or not
+                  fields:
+                    services.googlemaps.api_key:
+                      type: text
+                      label: API KEY
+                    services.googlemaps.callback_function:
+                      type: text
+                      label: Callback function
+                    services.googlemaps.zoom:
+                      type: text
+                      label: Zoom
+                    services.googlemaps.latitude:
+                      type: text
+                      label: Latitude
+                    services.googlemaps.longitude:
+                      type: text
+                      label: Longitude
+                    services.googlemaps.width:
+                      type: text
+                      label: Width
+                    services.googlemaps.height:
+                      type: text
+                      label: Height
+                    services.googlemaps.enabled:
+                      type: toggle
+                      label: Enabled
+                      highlight: 1
+                      default: 0
+                      options:
+                          1: 'Yes'
+                          0: 'No'
+                      validate:
+                          type: bool
+                googletagmanager:
+                  type: fieldset
+                  title: Google Tag Manager
+                  help: Third-party Tag configuration for Google Tag Manager
+                  info: (googletagmanager)
+                  text: 'Shortcode: [eprivacy-googletagmanager /] ; Twig variable: {{ eprivacy.googletagmanager }}'
+                  text: Text inside fieldset and before other fields
+                  collapsed: true     # Initial state of fieldset (see collapsible option)
+                  collapsible: true    # Whether one can expand the fieldset or not
+                  fields:
+                    services.googletagmanager.id:
+                      type: text
+                      label: id
+                    services.googletagmanager.enabled:
+                      type: toggle
+                      label: Enabled
+                      highlight: 1
+                      default: 0
+                      options:
+                          1: 'Yes'
+                          0: 'No'
+                      validate:
+                          type: bool
+
+            audiencemeasurement:
+              type: tab
+              title: 'Audience measurement'
+              fields:
+                info:
+                  type: display
+                  size: large
+                  label: None
+                  content: "There are no *Audience measurement* services defined in `eprivacy/blueprints.yaml` yet"
+                  markdown: true
+
+            comment:
+              type: tab
+              title: 'Comment'
+              fields:
+                disqus:
+                  type: fieldset
+                  title: Disqus
+                  help: Third-party Tag configuration for Disqus
+                  info: (disqus)
+                  text: 'Shortcode: [eprivacy-discus /] ; Twig variable: {{ eprivacy.discus }}'
+                  collapsed: true     # Initial state of fieldset (see collapsible option)
+                  collapsible: true    # Whether one can expand the fieldset or not
+                  fields:
+                    services.disqus.shortname:
+                      type: text
+                      label: Disqus Shortname
+                    services.disqus.enabled:
+                      type: toggle
+                      label: Enabled
+                      highlight: 1
+                      default: 0
+                      options:
+                          1: 'Yes'
+                          0: 'No'
+                      validate:
+                          type: bool
+            socialnetwork:
+              type: tab
+              title: 'Social network'
+              fields:
+                pinterest:
+                  type: fieldset
+                  title: Pinterest
+                  help: Third-party Tag configuration for Pinterest
+                  info: (pinterest)
+                  text: 'Shortcode: [eprivacy-pinterest /] ; Twig variable: {{ eprivacy.pinterest }}'
+                  collapsed: true     # Initial state of fieldset (see collapsible option)
+                  collapsible: true    # Whether one can expand the fieldset or not
+                  fields:
+                    services.pinterest.data_pin_color:
+                      type: select
+                      size: short
+                      classes: fancy
+                      label: Data Pin Color
+                      options:
+                        white: 'white'
+                        grey: 'grey'
+                        red: 'red'
+                    services.pinterest.data_pin_height:
+                      type: text
+                      label: Data Pin Height
+                      validate:
+                        rule: number
+                    services.pinterest.data_pin_shape:
+                      type: select
+                      size: short
+                      classes: fancy
+                      label: Data Pin Shape
+                      options:
+                        default: default
+                        round: 'round'
+                    services.pinterest.enabled:
+                      type: toggle
+                      label: Enabled
+                      highlight: 1
+                      default: 0
+                      options:
+                          1: 'Yes'
+                          0: 'No'
+                      validate:
+                          type: bool
+                
+                twitter:
+                  type: fieldset
+                  title: Twitter
+                  help: Third-party Tag configuration for Twitter
+                  info: (twitter)
+                  text: 'Shortcode: [eprivacy-twitter /] ; Twig variable: {{ eprivacy.twitter }}'
+                  collapsed: true     # Initial state of fieldset (see collapsible option)
+                  collapsible: true    # Whether one can expand the fieldset or not
+                  fields:
+                    services.twitter.username:
+                      type: text
+                      label: Username
+                    services.twitter.data_show_count:
+                      type: text
+                      label: Data Show Count
+                    services.twitter.data_count:
+                      type: text
+                      label: Data Count
+                    services.twitter.data_size:
+                      type: text
+                      label: Data Size
+                    services.twitter.enabled:
+                      type: toggle
+                      label: Enabled
+                      highlight: 1
+                      default: 0
+                      options:
+                          1: 'Yes'
+                          0: 'No'
+                      validate:
+                          type: bool
+              
+            support:
+              type: tab
+              title: 'Support'
+              fields:
+                info:
+                  type: display
+                  size: large
+                  label: None
+                  content: "There are no *Support* services defined in `eprivacy/blueprints.yaml` yet"
+                  markdown: true
+
+            video:
+              type: tab
+              title: 'Video'
+              fields:
+                info:
+                  type: display
+                  size: large
+                  label: None
+                  content: "There are no *Video* services defined in `eprivacy/blueprints.yaml` yet"
+                  markdown: true
+
+    tacinitoptions:
+      type: section
+      title: 'tarteaucitron.js options'
+      underline: true
+
+      fields:
+
+        #..... subfields
+        anchortag:
+          type: text
+          label: Popup anchor tag
+          help: Automatically open the popup when URL has this anchor tag
+          size: medium
+          validate:
+            pattern: '#[A-Za-z0-9-]+'
+            message: 'Must start with a # followed by letters or digits only'
+        orientation:
+          type: select
+          size: medium
+          label: Position
+          default: bottom
+          help: Position of the banner on the page
+          options:
+            bottom: Bottom
+            top: Top
+        ad_blocker:
+          type: toggle
+          label: Adblocker alert
+          help: Display a message if an adblocker is detected
+          highlight: 1
+          default: 0
+          options:
+            1: Enabled
+            0: Disabled
+          validate:
+            type: bool
+        show_alert_small:
+          type: toggle
+          label: Small banner
+          help: Always show the small banner on the page
+          highlight: 1
+          default: 0
+          options:
+            1: Enabled
+            0: Disabled
+          validate:
+            type: bool
+        handle_dnt_request:
+          type: toggle
+          label: Handle browser DoNotTrack
+          help: Handle browser DoNotTrack request setting
+          highlight: 1
+          default: 0
+          options:
+            1: Enabled
+            0: Disabled
+          validate:
+            type: bool
+        cookieslist:
+          type: toggle
+          label: List cookies
+          help: Display the list of cookies installed
+          highlight: 1
+          default: 0
+          options:
+            1: Enabled
+            0: Disabled
+          validate:
+            type: bool
+        remove_credit:
+          type: toggle
+          label: Remove credit link
+          help: Remove credit link to tarteaucitron.js
+          highlight: 0
+          default: 0
+          options:
+            1: Enabled
+            0: Disabled
+          validate:
+            type: bool
+        cookies_expire: 
+          type: text
+          label: Cookies Expire
+          help: How long in days the tarteaucitron.js cookie lasts (max. 365)
+          size: medium
+          validate:
+            type: number
+            min: 0
+            max: 365
+            message: Set the number of days for Cookies Expire (max. 365)
+        cookie_domain: 
+          type: text
+          label: Cookie sudomains
+          help: Domain name on which the cookie for the subdomains will be placed
+          size: medium
+          validate:
+            pattern: '\.[A-Za-z0-9][A-Za-z0-9\-.]{0,61}[A-Za-z0-9]?'
+            message: 'Add starting . or remove illegal characters'
+    extraoptions:
+      type: section
+      title: 'Extra options'
+      underline: true
+
+      fields:
+        ipstack_api_key:
+          type: text
+          label: ipstack API Access Key
+          help: ipstack is used to lookup whether a visit is from a EU member state
+          size: medium
+        show_activators:
+          type: toggle
+          label: Show activators
+          help: Show activator buttons for denied services
+          highlight: 0
+          default: 0
+          options:
+            1: Enabled
+            0: Disabled
+          validate:
+            type: bool
