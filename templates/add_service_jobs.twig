@@ -1,0 +1,6 @@
+    // Add service jobs to tarteaucitron
+$( document ).ready(function() {
+{% for key,service_name in eprivacy %}
+    (tarteaucitron.job = tarteaucitron.job || []).push('{{ service_name }}');
+{% endfor %}
+});

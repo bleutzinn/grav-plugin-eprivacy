@@ -1,0 +1,4 @@
+{% spaceless %}
+{% set data_count = eprivacy.twitter.data_count ? 'data_count='.eprivacy.twitter.data_count : '' %}
+<span class="tacTwitter"></span><a href="https://twitter.com/{{ eprivacy.twitter.username }}" class="twitter-follow-button" data-show-count="{{ eprivacy.twitter.data_show_count }}" data-size="{{ eprivacy.twitter.data_size }}" data-dnt="true"></a>
+{% endspaceless %}

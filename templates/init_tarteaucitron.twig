@@ -4,15 +4,17 @@ $( document ).ready(function() {
     window.tarteaucitron.init({
         "hashtag": "{{ eprivacy.anchortag }}", /* Automatically open the panel with the hashtag */
         "highPrivacy": true, /* disabling the auto consent feature on navigation? */
-        "orientation": "{{ eprivacy.orientation }}", /* the big banner should be on 'top' or 'bottom'? */
+        "orientation": "{{ eprivacy.orientation }}", /* the big banner should be at the 'top' or 'bottom'? */
         "adblocker": {{ eprivacy.ad_blocker ? 'true':'false' }}, /* Display a message if an adblocker is detected */
         "showAlertSmall": {{ eprivacy.show_alert_small ? 'true':'false' }}, /* show the small banner on bottom right? */
         "cookieslist": {{ eprivacy.cookies_list ? 'true':'false' }}, /* Display the list of cookies installed ? */
         "removeCredit": {{ eprivacy.remove_credit ? 'true':'false' }}, /* remove the credit link? */
+        "handleBrowserDNTRequest": {{ eprivacy.handle_browser_dnt_request ? 'true':'false' }}, /* Handle browser DoNotTrack request setting */
         //"cookieDomain": "{{ eprivacy.cookie_domain }}" /* Domain name on which the cookie for the subdomains will be placed */
     });
 
     var tarteaucitronForceLanguage = '{{ grav.language.getActive }}';
+    var tarteaucitronForceExpire = '{{ eprivacy.cookies_expire }}';
 
     var showActivators = Boolean({{ eprivacy.show_activators ? 1 : 0 }});
     if (showActivators === false) {
