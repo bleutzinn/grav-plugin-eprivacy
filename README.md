@@ -2,6 +2,11 @@
 
 The **ePrivacy** Plugin is for [Grav CMS](https://getgrav.org/). It's purpose is to help webmasters and developers with EU ePrivacy Regulations (GDPR) compliance.
 
+# ReadMe First
+
+**As of July 8th 2018 I've stopped working on this plugin.**
+
+
 >## [EU] ePrivacy Regulations
 >The European Union ePrivacy regulation has been published to broaden the scope of the current ePrivacy Directive and align the various online privacy rules that exist across EU member states. The regulation takes on board all definitions of privacy and data that were introduced within the General Data Protection Regulations, and acts to clarify and enhance it. In particular, the areas of unsolicited marketing, Cookies and Confidentiality are covered in a more specific context.   
 
