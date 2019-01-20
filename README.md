@@ -35,12 +35,6 @@ To create a Grav plugin which helps webmasters and developers of Grav CMS websit
 `testing: true` This plugin is maturing but still **not ready for production**. Help from the Grav community is welcome and needed to improve it.   
 For feature enhancement suggestions, questions, discussion, bug reports and Pull Requests (hint) please use the [issues](https://github.com/bleutzinn/grav-plugin-eprivacy/issues) feature in this repository.
 
-
-## Demo
-
-A first demo is available at [https://festeto.net/grav-plugin-eprivacy-demo/](https://festeto.net/grav-plugin-eprivacy-demo/).
-
-
 ## Configuration
 
 If you use the Admin plugin, a file with your configuration named `e-privacy.yaml` will be saved in the `user/config/plugins/` folder once the configuration is saved in Admin.
